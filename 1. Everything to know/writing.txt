@@ -1,0 +1,4 @@
+Everything in this file was written while running main.
+I mainly built this myself, and Gemini helped me fix some things.
+I used this project to learn more about files and hope you will do the same.
+But You are absolutely free to do what you want with this Project.

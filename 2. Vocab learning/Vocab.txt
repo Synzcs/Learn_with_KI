@@ -1,0 +1,10 @@
+learn,lernen
+eat,essen
+read,lesen
+cat,Katze
+dog,Hund
+lion,Löwe
+tiger,Tiger
+monkey,Affe
+banana,Banane
+apple,Apfel
