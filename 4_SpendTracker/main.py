@@ -1,7 +1,7 @@
-import SLogic
+import SpendLogic
 
 while True:
-    check = SLogic.userinput()
+    check = SpendLogic.userinput()
     if check:
         print("Thanks for using our service.")
         break
