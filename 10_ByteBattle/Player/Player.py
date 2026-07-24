@@ -1,4 +1,3 @@
-
 class Mainchar():
     def __init__(self):
         self.fistattak = 2
@@ -24,12 +23,3 @@ class Mainchar():
         print("Kick: ", self.kick)
         print("Fist: ", self.fistattak)
         print("Weaponmastery: ", self.weaponmastery)
-
-    def input(self):
-        pass
-
-
-
-mainy = Mainchar()
-while True:
-    mainy.levelup()
