@@ -1,3 +1,7 @@
+from Enemy import Slime
+from Enemy.Slime import Slime
+
+
 class Mainchar:
     def __init__(self):
         self.fistattak = 2
@@ -22,20 +26,34 @@ class Mainchar:
         self.fistattak += 2
         self.HP += 2
         print("You accieved a level upgrade. New level: ", self.levl)
+        self.points()
+
+    def checkatk(self):
+        typen = input("f = fist, k = kick\n")
+        if typen == "f":
+            self.fist()
+        elif typen == "k":
+            self.kik()
+
+
+
+    def fist(self,slime):
+        damage = self.fistattak
+        slime.health -= damage
+
+
+    def kik(self, slime):
+        damage = self.kick
+        slime.health -= damage
+
+    def weaponmastery(self):
+        mastery = self.weaponmastery
+        return mastery
+
+    def points(self):
         print("HP: ", self.HP)
         print("Kick: ", self.kick)
         print("Fist: ", self.fistattak)
         print("Weaponmastery: ", self.weaponmastery)
-
-    def fist(self):
-        damage = self.fistattak
-        return damage
-
-    def kik(self):
-        damage = self.kick
-        return damage
-
-    def weaponmastery(self):
-        mastery = self.weaponmastery
 
 
