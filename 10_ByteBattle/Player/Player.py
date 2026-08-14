@@ -1,51 +1,98 @@
-class Mainchar:
+import random
+
+
+class Player:
     def __init__(self):
-        self.fistattak = 2
-        self.weapon_mastery_val = 1
-        self.kick = 3
-        self.levl = 0
+        self.level = 0
         self.XP = 0
-        self.HP = 100
-        self.max_HP = 100  # Speichert das maximale Leben für die Heilung
+        self.name = ""
+        self.health = 10
+        self.health_max = 10
+        self.weaponmastery = 0
+        self.punch = 0
+        self.kick = 0
 
-    def add_xp(self, amount):
-        self.XP += amount
-        print(f"✨ Du erhältst {amount} XP! (Gesamt-XP: {self.XP})")
+    def askname(self):
+        self.name = input("Please enter your name: ")
 
-        # Prüfen, ob genug XP für ein oder mehrere Level-Ups da sind
-        while self.XP >= (self.levl + 1) * 5:
-            self.leveleffects()
+    def train(self):
+        ask = str(input("What do you want to train?(k = Kicks, p = Punch, m = weaponmastery)"))
+        trainefficient = random.randint(0,100)
+        if trainefficient > 75:
+            if ask == "k" and trainefficient > 90:
+                self.kick += 2
+                print("Congrats you got better at Kicks by 2 Points.")
+            elif ask == "k" and trainefficient > 75:
+                self.kick += 1
+                print("Congrats you got better at Kicks by 1 Point.")
+            elif ask == "p" and trainefficient > 90:
+                self.punch += 2
+                print("Congrats you got better at Punch by 2 Points.")
+            elif ask == "p" and trainefficient > 75:
+                self.punch += 1
+                print("Congrats you got better at Punch by 1 Point.")
+            elif ask == "m" and trainefficient > 90:
+                self.weaponmastery += 2
+                print("Congrats you got better at Weaponmastery by 2 Points.")
+            elif ask == "m" and trainefficient > 75:
+                self.weaponmastery += 1
+                print("Congrats you got better at Weaponmastery by 1 Point.")
+            else:
+                print("You didn't get better.")
+        else:
+            print("You didn't get better.")
 
-    def leveleffects(self):
-        self.levl += 1
-        self.kick += 2
-        self.weapon_mastery_val += 1
-        self.fistattak += 2
-        self.max_HP += 10  # Max-HP erhöht sich
-        self.HP = self.max_HP  # Volle Heilung bei Level-Up
-        print(f"\n🎉 LEVEL UP! Du bist jetzt Level {self.levl}!")
-        self.points()
+    def showstats(self):
+        print("name:", self.name)
+        print("Level:", self.level)
+        print("XP:", self.XP)
+        print("health:", self.health)
+        print("weaponmastery:", self.weaponmastery)
+        print("punch:", self.punch)
+        print("kick:", self.kick)
 
-    def rest(self):
-        self.HP = self.max_HP
-        print(f"💤 Du hast geschlafen und dich komplett erholt! Deine HP sind wieder bei {self.HP}.\n")
+    def chckLevel(self):
+        origXP = self.XP % 10
+        if origXP == 0:
+            self.level += 1
+            self.Levelincrease()
 
-    def checkatk(self, enemy):
-        typen = input("f = fist, k = kick\n")
-        if typen == "f":
-            self.fist(enemy)
-        elif typen == "k":
-            self.kik(enemy)
 
-    def fist(self, enemy):
-        damage = self.fistattak
-        enemy.HP -= damage
-        print(f"Du schlägst zu! Der Gegner verliert {damage} HP.")
+    def Levelincrease(self):
+        self.health_max += 5
+        self.weaponmastery += 3
+        self.punch += 3
+        self.kick += 3
+        self.showstats()
 
-    def kik(self, enemy):
+    def Kicking(self):
         damage = self.kick
-        enemy.HP -= damage
-        print(f"Du trittst zu! Der Gegner verliert {damage} HP.")
+        file = open("../Files/damage.txt", "w")
+        file.write(str(damage))
+        file.close()
 
-    def points(self):
-        print(f"HP: {self.HP}/{self.max_HP} | Kick: {self.kick} | Fist: {self.fistattak}")
+    def Punching(self):
+        damage = self.punch
+        file = open("../Files/damage.txt", "w")
+        file.write(str(damage))
+        file.close()
+
+    def attakdec(self):
+        type = str(input("Do you want to perform a k = Kick or p = Punch?"))
+        if type == "k":
+            self.Kicking()
+        elif type == "p":
+            self.Punching()
+        else:
+            print("Your just dumb")
+
+
+player = Player()
+player.askname()
+player.showstats()
+while True:
+    quit = input("Do you want to quit?(y = yes, n = no)")
+    if quit == "y":
+        break
+    player.train()
+    player.showstats()
