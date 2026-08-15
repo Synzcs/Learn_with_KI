@@ -1,4 +1,5 @@
 import random
+import sys
 
 
 class Player:
@@ -18,23 +19,32 @@ class Player:
     def train(self):
         ask = str(input("What do you want to train?(k = Kicks, p = Punch, m = weaponmastery)"))
         trainefficient = random.randint(0,100)
-        if trainefficient > 75:
+        if trainefficient > 50:
             if ask == "k" and trainefficient > 90:
+                self.kick += 3
+                print("Congrats you got better at Kicks by 3 Points.")
+            elif ask == "k" and trainefficient > 75:
                 self.kick += 2
                 print("Congrats you got better at Kicks by 2 Points.")
-            elif ask == "k" and trainefficient > 75:
+            elif ask == "k" and trainefficient > 50:
                 self.kick += 1
                 print("Congrats you got better at Kicks by 1 Point.")
             elif ask == "p" and trainefficient > 90:
+                self.punch += 3
+                print("Congrats you got better at Punch by 3 Points.")
+            elif ask == "p" and trainefficient > 75:
                 self.punch += 2
                 print("Congrats you got better at Punch by 2 Points.")
-            elif ask == "p" and trainefficient > 75:
+            elif ask == "p" and trainefficient > 50:
                 self.punch += 1
                 print("Congrats you got better at Punch by 1 Point.")
             elif ask == "m" and trainefficient > 90:
+                self.weaponmastery += 3
+                print("Congrats you got better at Weaponmastery by 3 Points.")
+            elif ask == "m" and trainefficient > 75:
                 self.weaponmastery += 2
                 print("Congrats you got better at Weaponmastery by 2 Points.")
-            elif ask == "m" and trainefficient > 75:
+            elif ask == "m" and trainefficient > 50:
                 self.weaponmastery += 1
                 print("Congrats you got better at Weaponmastery by 1 Point.")
             else:
@@ -70,12 +80,14 @@ class Player:
         file = open("../Files/damage.txt", "w")
         file.write(str(damage))
         file.close()
+        print("Damage: ", damage)
 
     def Punching(self):
         damage = self.punch
         file = open("../Files/damage.txt", "w")
         file.write(str(damage))
         file.close()
+        print("Damage: ", damage)
 
     def attakdec(self):
         type = str(input("Do you want to perform a k = Kick or p = Punch?"))
@@ -86,13 +98,31 @@ class Player:
         else:
             print("Your just dumb")
 
+    def gothit(self):
+        file = open("../Files/damage.txt", "r")
+        damage = file.read()
+        file.close()
+        self.health = self.health - int(damage)
+        print("Health: ", self.health)
+        self.checkalive()
 
-player = Player()
-player.askname()
-player.showstats()
-while True:
-    quit = input("Do you want to quit?(y = yes, n = no)")
-    if quit == "y":
-        break
-    player.train()
-    player.showstats()
+    def checkalive(self):
+        live = self.health
+        if live <= 0:
+            print("You are dead")
+            sys.exit()
+
+
+    def nextmove(self):
+        decision = str(input("What do you want to do?(q = quit, c = checkstats, a = attak, t = train, g = gethit)"))
+        if decision == "c":
+            self.showstats()
+        elif decision == "a":
+            self.attakdec()
+        elif decision == "t":
+            self.train()
+        elif decision == "g":
+            self.gothit()
+        elif decision == "q":
+            return True
+        return False
