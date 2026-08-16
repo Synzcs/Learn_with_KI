@@ -112,9 +112,32 @@ class Player:
             print("You are dead")
             sys.exit()
 
+    def searchenemy(self):
+        self.sendstats()
+        if self.level <= 5:
+            l = 1
+            file = open("../Files/typeenemy.txt", "w")
+            file.write(str(l))
+            file.close()
+        elif self.level <= 10:
+            l = 2
+            file = open("../Files/typeenemy.txt", "w")
+            file.write(str(l))
+            file.close()
+        elif self.level > 10:
+            l = 3
+            file = open("../Files/typeenemy.txt", "w")
+            file.write(str(l))
+            file.close()
+
+    def sendstats(self):
+        Level = self.level
+        file = open("../Files/level.txt", "w")
+        file.write(str(Level))
+        file.close()
 
     def nextmove(self):
-        decision = str(input("What do you want to do?(q = quit, c = checkstats, a = attak, t = train, g = gethit)"))
+        decision = str(input("What do you want to do?(q = quit, c = checkstats, a = attak, t = train, g = gethit,s = searchenemy)"))
         if decision == "c":
             self.showstats()
         elif decision == "a":
@@ -123,6 +146,8 @@ class Player:
             self.train()
         elif decision == "g":
             self.gothit()
+        elif decision == "s":
+            self.searchenemy()
         elif decision == "q":
             return True
         return False
