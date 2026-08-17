@@ -148,6 +148,10 @@ class Player:
             self.gothit()
         elif decision == "s":
             self.searchenemy()
+            file = open("../Files/fightstatus.txt", "w")
+            yea = "yes"
+            file.write(str(yea))
+            file.close()
         elif decision == "q":
             return True
         return False
